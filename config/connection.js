@@ -6,7 +6,7 @@ const state = {
 };
 
 
-const url = process.env.MONGODB_URI; 
+const url = process.env.MONGODB_URI || "mongodb+srv://irsgmlg:irsmglm8187@cluster0.8fku5.mongodb.net/library?retryWrites=true&w=majority"; 
 
 const dbName = process.env.DB_NAME || 'library';
 
