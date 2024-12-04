@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library App</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+  <style>
+    /* General Styles */
+    body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #ffffff, #dae7da);
+  color: #333;
+}
+
+header, footer {
+  position: fixed;
+  width: 100%;
+  z-index: 10;
+}
+
+/* Top Navigation Bar */
+.app-header {
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(40deg, #0b8753, #0f3443);
+  color: white;
+  padding: 1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  width: 100%;
+}
+
+.app-header .menu-icon,
+.app-header .profile-icon {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.app-header .menu-icon:hover,
+.app-header .profile-icon:hover {
+  color: #FFC75F; /* Highlight on hover */
+}
+
+.app-title {
+  font-size: 1.75rem;
+  font-weight: bold;
+  text-align: center;
+}
+.profile-icon{
+    margin-right: 30px;
+}
+/* Dashboard Section */
+.app-dashboard {
+  padding: 5rem 1rem 5rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.card {
+background-color: white;
+  border-radius: 20px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1), -5px -5px 15px rgba(255, 255, 255, 0.5);
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card .icon {
+  font-size: 2rem;
+  color: #056717; /* Matches the theme */
+  margin-bottom: 1rem;
+  transition: color 0.3s ease-in-out;
+}
+
+.card:hover .icon {
+  color: #0094ce; /* Changes icon color on hover */
+}
+
+.card h3 {
+  font-size: 1.25rem;
+  color: #046d97; 
+  margin: 0;
+}
+
+.card:hover {
+  transform: scale(1.1);
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2), -10px -10px 20px rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+}
+
+/* Bottom Navigation */
+.app-footer {
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: linear-gradient(140deg, #0b8753, #0f3443);
+  color: white;
+  padding: 0.75rem 0;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+.app-footer button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.rem;
+  cursor: pointer;
+}
+
+.app-footer button i {
+  font-size: 1rem;
+}
+
+.app-footer button:hover {
+  color: #FFC75F;
+}
+
+/* Responsive Design */
+@media (min-width: 600px) {
+  .app-dashboard {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+  </style>
+</head>
+<body>
+<!-- Top Navigation Bar -->
+<header class="app-header">
+    <div class="menu-icon"><i class="fas fa-bars"></i></div>
+    <div class="app-title">My Library</div>
+    <div class="profile-icon"><i class="fas fa-user-circle"></i></div>
+  </header>
+
+ <!-- Main Dashboard -->
+<main class="app-dashboard">
+    <div class="card" onclick="navigateTo('books')">
+      <div class="icon"><i class="fas fa-book"></i></div>
+      <h3>Books</h3>
+    </div>
+    <div class="card" onclick="navigateTo('borrowBooks')">
+      <div class="icon"><i class="fas fa-book-reader"></i></div>
+      <h3>Borrow Books</h3>
+    </div>
+    <div class="card" onclick="navigateTo('returnBooks')">
+      <div class="icon"><i class="fas fa-undo"></i></div>
+      <h3>Return Books</h3>
+    </div>
+    <div class="card" onclick="navigateTo('users')">
+      <div class="icon"><i class="fas fa-user-circle"></i></div>
+      <h3>Students</h3>
+    </div>
+  </main>
+  
+
+  <!-- Bottom Navigation -->
+<footer class="app-footer">
+  <button onclick="navigateTo('home')"><i class="fas fa-home"></i> Home</button>
+  <button onclick="navigateTo('books')"><i class="fas fa-book"></i> Books</button>
+  <button onclick="navigateTo('users')"><i class="fas fa-user"></i> Students</button>
+</footer>
+
+  <script>
+    function navigateTo(page) {
+       if(page == "borrowBooks"){
+        window.location.href = "/transactions/borrow"
+      }else if(page === "returnBooks"){
+        window.location.href = "/transactions/borrowed-books"
+      }else if(page === "profile"){
+        window.location.href = "/transactions/borrowed-books"
+      }else if(page === "home"){
+        window.location.href = "/home"
+      }else if(page === "books"){
+        window.location.href = "/books"
+      }else if(page === "users"){
+        window.location.href = "/users"
+      }
+    }
+  </script>
+</body>
+</html>

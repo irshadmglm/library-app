@@ -1,0 +1,269 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Book Listing</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+        background: linear-gradient(90deg, #FFFFFF, #edf7ee); 
+    }
+    
+header, footer {
+  position: fixed;
+  width: 100%;
+  z-index: 10;
+}
+
+/* Top Navigation Bar */
+.app-header {
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(40deg, #0b8753, #0f3443);
+  color: white;
+  padding: 1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  width: 100%;
+}
+
+.app-header .menu-icon,
+.app-header .profile-icon {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.app-header .menu-icon:hover,
+.app-header .profile-icon:hover {
+  color: #FFC75F; /* Highlight on hover */
+}
+    .book-container {
+      max-width: 1000px;
+      padding: 20px;
+      margin: 40px auto;
+      border-radius: 8px;
+      background: linear-gradient(145deg, #FFFFFF, #edf7ee); 
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .book-container h2 {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 16px;
+    }
+
+    .book-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: linear-gradient(145deg, #FFFFFF, #DFF4E1); 
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .book-table th, .book-table td {
+      padding: 10px 15px;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .book-table th {
+      background-color: #d6ecd9;
+      color: #333;
+    }
+
+    .book-table td {
+      border-top: 1px solid #e5d1a3;
+    }
+
+    .book-table tr:nth-child(even) {
+        background: linear-gradient(145deg, #dff4db, #DFF4E1); 
+
+    }
+
+    .book-table .action-btn {
+      padding: 6px 12px;
+      background: linear-gradient(40deg, #0b8753, #0f3443);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    /* Hidden details for mobile view */
+    .details-row {
+      display: none;
+    }
+
+    /* Footer */
+    .app-footer {
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: linear-gradient(140deg, #0b8753, #0f3443);
+
+
+  color: white;
+  padding: 0.75rem 0;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+.app-footer button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.rem;
+  cursor: pointer;
+}
+
+.app-footer button i {
+  font-size: 1rem;
+}
+
+.app-footer button:hover {
+  color: #FFC75F;
+}
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      /* Hide Author and Price columns */
+      .book-table th:nth-child(3),
+      .book-table th:nth-child(4),
+      .book-table td:nth-child(3),
+      .book-table td:nth-child(4) {
+        display: none;
+      }
+
+      .details-row {
+        display: none; /* Hidden by default */
+      }
+
+      .details-row.active {
+        display: table-row; /* Shown when active */
+        background-color: #fff8e1;
+      }
+
+      .details-row td {
+        font-size: 12px;
+        text-align: left;
+        padding: 10px;
+      }
+    }
+  </style>
+  <script>
+    function toggleDetails(button) {
+      const detailsRow = button.closest('tr').nextElementSibling;
+      detailsRow.classList.toggle('active');
+    }
+  </script>
+</head>
+
+
+
+
+<body>
+    <!-- Header -->
+    <header class="app-header">
+      <div class="menu-icon"><i class="fas fa-bars"></i></div>
+      <div class="app-title">Users</div>
+      <div onclick="navigateTo('adduser')" class="profile-icon"><i class="fas fa-user-plus"></i> </div>
+    </header>
+  
+    <!-- Search Bar -->
+    <div class="search-bar">
+      <input type="text" id="search-input" placeholder="Search User">
+      <button type="button" id="search-button">Search</button>
+    </div>
+  
+    <!-- Users Container -->
+    <div class="book-container">
+  
+      <!-- Users Table -->
+      <table class="book-table">
+        <thead>
+          <tr>
+            <th>Student ID</th>
+            <th>Name</th>
+            <th>gender</th>
+            <th>Class</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Sample Rows -->
+          <% users.forEach(user => { %>
+          <tr class="<%= user.status === 'inactive' ? 'borrowed' : '' %>">
+            <td><%= user.studentId %></td>
+            <td><%= user.studentName %></td>
+            <td><%= user.gender %></td>
+            <td><%= user.division ? user.selectedClass + " " + user.division : user.selectedClass %></td>
+            <td>
+              <button class="action-btn" onclick="toggleDetails(this)">Details</button>
+            </td>
+          </tr>
+          <tr class="details-row">
+            <td colspan="5">
+                <strong>Class:</strong> <%= user.division ? user.selectedClass + " " + user.division : user.selectedClass %><br>
+              <strong>roll No:</strong> <%= user.rollNumber %><br>
+              <strong>gender:</strong> <%= user.gender %><br>
+              
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Footer -->
+    <footer class="app-footer">
+      <button onclick="navigateTo('home')"><i class="fas fa-home"></i> Home</button>
+      <button onclick="navigateTo('books')"><i class="fas fa-book"></i> Books</button>
+      <button onclick="navigateTo('users')"><i class="fas fa-user"></i> Users</button>
+    </footer>
+  
+    <script>
+      function navigateTo(page) {
+        if (page === "home") {
+          window.location.href = "/home";
+        } else if (page === "books") {
+          window.location.href = "/books";
+        } else if (page === "users") {
+          window.location.href = "/users";
+        } else if (page === "adduser") {
+          window.location.href = "/users/add-user";
+        }
+      }
+    </script>
+  </body>
+  
+  
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

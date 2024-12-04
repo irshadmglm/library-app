@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+
+  <title>Book Listing</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(90deg, #ffffff, #e8f1e8);
+    }
+    header, footer {
+  position: fixed;
+  width: 100%;
+  z-index: 10;
+}
+
+    /* Header */
+ .app-header {
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(90deg, #0b8753, #0f3443); 
+  color: white;
+  padding: 1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  width: 100%;
+}
+
+
+    .app-header .menu-icon, 
+    .app-header .profile-icon {
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .app-header .menu-icon:hover, 
+    .app-header .profile-icon:hover {
+      color: #ffc75f;
+    }
+
+    .app-header .app-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 25px;
+  padding: 8px;
+  max-width: 300px; /* Adjust size */
+  margin: 20px auto; /* Center the search bar */
+  background: linear-gradient(145deg, #f0efef, #DFF4E1); 
+  margin-top: 70px;
+}
+
+.search-bar input {
+  border: none;
+  outline: none;
+  padding: 8px 12px;
+  width: 100%; /* Ensures input takes available space */
+  font-size: 16px;
+  border-radius: 20px 0 0 20px; /* Smooth rounded corners on the left */
+  color: #333;
+  background: linear-gradient(145deg, #ffffff, #ffffff); 
+}
+
+.search-bar button {
+    background: linear-gradient(90deg, #0b8753, #0f3443); 
+  border: none;
+  padding: 8px 15px;
+  font-size: 16px;
+  border-radius: 0 20px 20px 0; /* Smooth rounded corners on the right */
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  
+}
+
+.search-bar button:hover {
+    background: linear-gradient(90deg,  #0f3443, #0b8753); 
+
+}
+
+.search-bar input::placeholder {
+  color: #999;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .search-bar {
+    max-width: 90%; /* Adjust to fit smaller screens */
+  }
+  .search-bar input {
+    font-size: 14px;
+  }
+  .search-bar button {
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+}
+
+    .book-container {
+      max-width: 1000px;
+      padding: 20px;
+      margin: 10px auto;
+      border-radius: 8px;
+      background: linear-gradient(145deg, #FFFFFF, #DFF4E1); 
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .book-container h2 {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 16px;
+    }
+
+    .book-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: linear-gradient(145deg, #f3ffea, #c1f5e0); 
+
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .book-table th, .book-table td {
+      padding: 10px 15px;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .book-table th {
+      background-color: #eaffe8;
+      color: #333;
+    }
+
+    .book-table td {
+      border-top: 1px solid #e5d1a3;
+    }
+
+    .book-table tr:nth-child(even) {
+      background-color: #f2fff4;
+    }
+
+    .book-table .action-btn {
+      padding: 6px 12px;
+      background: linear-gradient(90deg, #0b8753, #0f3443); 
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    /* Hidden details for mobile view */
+    .details-row {
+      display: none;
+    }
+  
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      /* Hide Author and Price columns */
+      .book-table th:nth-child(3),
+      .book-table th:nth-child(4),
+      .book-table td:nth-child(3),
+      .book-table td:nth-child(4) {
+        display: none;
+      }
+
+      .details-row {
+        display: none; /* Hidden by default */
+      }
+
+      .details-row.active {
+        display: table-row; /* Shown when active */
+        background-color: #fff8e1;
+      }
+
+      .details-row td {
+        font-size: 12px;
+        text-align: left;
+        padding: 10px;
+      }
+      .borrowed {
+      background: linear-gradient(145deg, #fbf1e6, #f8d7da); 
+    color: #721c24;
+}
+ /* Footer */
+ .app-footer {
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: linear-gradient(140deg, #0b8753, #0f3443);
+
+
+  color: white;
+  padding: 0.75rem 0;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+.app-footer button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.rem;
+  cursor: pointer;
+}
+strong{
+  padding: 3px;
+}
+.app-footer button i {
+  font-size: 1rem;
+}
+
+.app-footer button:hover {
+  color: #FFC75F;
+}
+    }
+  </style>
+  <script>
+    function toggleDetails(button) {
+      const detailsRow = button.closest('tr').nextElementSibling;
+      detailsRow.classList.toggle('active');
+    }
+  </script>
+</head>
+<body>
+     <!-- Header -->
+  <header class="app-header">
+    <div class="menu-icon"><i class="fas fa-bars"></i></div>
+    <div class="app-title">Books</div>
+    <div onclick="navigateTo('addbook')" class="profile-icon"><i class="fas fa-book-medical" style="transform: rotate(-10deg);"></i>
+    </div>
+  </header>
+    <div class="search-bar">
+        <input type="text" id="search-input" placeholder="Search Book">
+        <button type="button" id="search-button">Search</button>
+      </div>
+      
+  <div class="book-container">
+
+    <!-- Book Table -->
+    <table class="book-table">
+      <thead>
+        <tr>
+          <th>Book No.</th>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Price</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Sample Rows -->
+        <% books.forEach(book => { %>
+            <tr class="<%= book.status === 'borrowed' ? 'borrowed' : '' %>">
+                <td><%= book.bookNumber %></td>
+                <td><%= book.title %></td>
+                <td><%= book.author %></td>
+                <td><%= book.price %></td>
+                <td>
+                  <button class="action-btn" onclick="toggleDetails(this)">Details</button>
+                </td>
+              </tr>
+              <tr class="details-row">
+                <td colspan="5">
+                  <strong>status: </strong><%= book.status %><br>
+                  <strong>Price:</strong> <%= book.price %> <br>
+                  <strong>Author:</strong><%= book.author %><br>
+                  <% if(book.status === 'borrowed'){ %>
+                    <strong>borrowed By:</strong><%= book.borrowedBy %><br>
+                  <strong>student Name:</strong><%= book.studentName %><br>
+                  <strong>due Date:</strong><%= book.dueDate ? book.dueDate.toDateString() : " " %><br>
+                    <% }  %>
+                </td>
+              </tr>
+            <% }) %>
+       
+      </tbody>
+    </table>
+  </div>
+  <!-- Footer -->
+  <footer class="app-footer">
+    <button onclick="navigateTo('home')"><i class="fas fa-home"></i> Home</button>
+    <button onclick="navigateTo('books')"><i class="fas fa-book"></i> Books</button>
+    <button onclick="navigateTo('users')"><i class="fas fa-user"></i> Students</button>
+  </footer>
+
+  <script>
+    function navigateTo(page) {
+    if(page === "home"){
+      window.location.href = "/home"
+    }else if(page === "books"){
+      window.location.href = "/books"
+    }else if(page === "users"){
+      window.location.href = "/users"
+    }else if(page === "addbook"){
+      window.location.href = "/books/add-book"
+    }
+    }
+  </script>
+</body>
+</html>
