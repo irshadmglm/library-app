@@ -6,7 +6,7 @@ const state = {
 };
 
 
-const url = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017'; 
+const url = process.env.MONGODB_URI; 
 
 const dbName = process.env.DB_NAME || 'library';
 
