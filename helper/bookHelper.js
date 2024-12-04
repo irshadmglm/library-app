@@ -13,7 +13,6 @@ module.exports = {
     getBooks:function(){
         return new Promise(async(resolve,reject)=>{
             try {
-                this.exeldata()
                let books = await db.get().collection(collections.BOOK_COLLECTION).find().sort({bookNumber: 1}).toArray()
                resolve(books);
             } catch (error) {
